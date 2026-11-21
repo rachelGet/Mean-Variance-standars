@@ -1,32 +1,43 @@
 import numpy as np
-def valores(array, axi = None):
-    mid = np.mean(array, axis=axi)
-    var = np.var(array, axis=axi)
-    std = np.std(array, axis=axi)
-    max = np.max(array, axis=axi)
-    min = np.min(array, axis=axi)
-    sum = np.sum(array, axis=axi)
-    return mid, var, std, max, min, sum
 
-def calculate(lst):
-    if len(lst) != 9:
+
+def calculate(list):
+    if len(list) != 9:
         raise ValueError("List must contain nine numbers.")
 
-    try:
-        lista = np.array(lst)
-        reshapeList = lista.reshape((3,3))
-        media, varianza, standard_deviation, maximo, minimo, suma = valores(reshapeList)
-        media0, varianza0, standard_deviation0, maximo0, minimo0, suma0 = valores(reshapeList, 0)
-        media1, varianza1, standard_deviation1, maximo1, minimo1, suma1 = valores(reshapeList, 1)
+    arr = np.array(list).reshape(3, 3)
 
-        calculations = {
-            'mean': [media0.tolist(), media1.tolist(), media],
-            'variance': [varianza0.tolist(), varianza1.tolist(), varianza],
-            'standard deviation': [standard_deviation0.tolist(), standard_deviation1.tolist(), standard_deviation],
-            'max': [maximo0.tolist(),maximo1.tolist(), maximo],
-            'min': [minimo0.tolist(), minimo1.tolist(), minimo],
-            'sum': [suma0.tolist(), suma1.tolist(), suma]
-        }
-        return calculations
-    except Exception as error:
-        return str(error)
+    calculations = {
+        'mean': [
+            arr.mean(axis=0).tolist(),
+            arr.mean(axis=1).tolist(),
+            arr.mean().tolist()
+        ],
+        'variance': [
+            arr.var(axis=0).tolist(),
+            arr.var(axis=1).tolist(),
+            arr.var().tolist()
+        ],
+        'standard deviation': [
+            arr.std(axis=0).tolist(),
+            arr.std(axis=1).tolist(),
+            arr.std().tolist()
+        ],
+        'max': [
+            arr.max(axis=0).tolist(),
+            arr.max(axis=1).tolist(),
+            arr.max().tolist()
+        ],
+        'min': [
+            arr.min(axis=0).tolist(),
+            arr.min(axis=1).tolist(),
+            arr.min().tolist()
+        ],
+        'sum': [
+            arr.sum(axis=0).tolist(),
+            arr.sum(axis=1).tolist(),
+            arr.sum().tolist()
+        ]
+    }
+
+    return calculations
